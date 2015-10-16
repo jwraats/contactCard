@@ -12,8 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import apps.jacks.contactcard.dummy.DummyContent;
-
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -23,7 +21,7 @@ import apps.jacks.contactcard.dummy.DummyContent;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class personFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class PersonFragment extends Fragment implements AbsListView.OnItemClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,8 +46,8 @@ public class personFragment extends Fragment implements AbsListView.OnItemClickL
     private ListAdapter mAdapter;
 
     // TODO: Rename and change types of parameters
-    public static personFragment newInstance(String param1, String param2) {
-        personFragment fragment = new personFragment();
+    public static PersonFragment newInstance(String param1, String param2) {
+        PersonFragment fragment = new PersonFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,7 +59,7 @@ public class personFragment extends Fragment implements AbsListView.OnItemClickL
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public personFragment() {
+    public PersonFragment() {
     }
 
     @Override
@@ -74,8 +72,8 @@ public class personFragment extends Fragment implements AbsListView.OnItemClickL
         }
 
         // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+        mAdapter = new ArrayAdapter<Person>(getActivity(),
+                android.R.layout.simple_list_item_1, android.R.id.text1, PersonStorage.ITEMS);
     }
 
     @Override
@@ -115,7 +113,7 @@ public class personFragment extends Fragment implements AbsListView.OnItemClickL
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onPersonSelected(DummyContent.ITEMS.get(position).id);
+            mListener.onPersonSelected(PersonStorage.ITEMS.get(position).getEmail());
         }
     }
 

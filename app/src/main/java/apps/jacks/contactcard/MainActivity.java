@@ -1,5 +1,6 @@
 package apps.jacks.contactcard;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,7 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements personFragment.OnFragmentInteractionListener, personDetails.OnFragmentInteractionListener
+public class MainActivity extends AppCompatActivity implements PersonFragment.OnFragmentInteractionListener, PersonDetailsActivity.OnFragmentInteractionListener
 {
 
     @Override
@@ -39,9 +40,10 @@ public class MainActivity extends AppCompatActivity implements personFragment.On
     }
 
     @Override
-    public void onPersonSelected(String str) {
-
-        Log.d("MainActivity", str);
+    public void onPersonSelected(String email) {
+        Intent i = new Intent(getApplicationContext(), PersonDetailsActivity.class);
+        i.putExtra("email", email);
+        startActivity(i);
     }
 
     @Override
