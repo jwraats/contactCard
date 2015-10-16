@@ -5,11 +5,11 @@ package apps.jacks.contactcard;
  */
 public class Person {
     private boolean isMale;
-    private string firstName;
-    private string lastName;
-    private string imageURL;
+    private String firstName;
+    private String lastName;
+    private String imageURL;
 
-    public Person(boolean isMale, string firstName, string lastName, string imageURL){
+    public Person(boolean isMale, String firstName, String lastName, String imageURL){
         this.isMale = isMale;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -24,27 +24,27 @@ public class Person {
         return this.isMale;
     }
 
-    public void setFirstName(string firstName){
+    public void setFirstName(String firstName){
         this.firstName = firstName;
     }
 
-    public string getFirstName(){
+    public String getFirstName(){
         return this.firstName;
     }
 
-    public void setLastName(string lastName){
+    public void setLastName(String lastName){
         this.lastName = lastName;
     }
 
-    public string getLastName(){
+    public String getLastName(){
         return this.lastName;
     }
 
-    public void setImageURL(string imageURL){
+    public void setImageURL(String imageURL){
         this.imageURL = imageURL;
     }
 
-    public string getImageURL(){
+    public String getImageURL(){
         return this.imageURL;
     }
 
