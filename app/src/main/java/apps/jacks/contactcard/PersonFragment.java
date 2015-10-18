@@ -82,7 +82,7 @@ public class PersonFragment extends Fragment implements AbsListView.OnItemClickL
         View view = inflater.inflate(R.layout.fragment_person, container, false);
 
         // Set the adapter
-        mListView = (AbsListView) view.findViewById(android.R.id.list);
+        mListView = (AbsListView) view.findViewById(R.id.PersonListView);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
         // Set OnItemClickListener so we can be notified on item clicks
