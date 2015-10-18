@@ -19,20 +19,20 @@ public class MainActivity extends AppCompatActivity implements ApiTask.OnPersonA
         setContentView(R.layout.activity_main);
 
         //add persons to the PersonStorage
-//        for (int i = 0; i < 10; i++){
-//            ApiTask apiTask = new ApiTask(this);
-//            String[] url = new String[] { "https://randomuser.me/api/"};
-//            apiTask.execute(url);
-//        }
+        for (int i = 0; i < 10; i++){
+            ApiTask apiTask = new ApiTask(this);
+            String[] url = new String[] { "https://randomuser.me/api/"};
+            apiTask.execute(url);
+        }
     }
 
     @Override
     public void onPersonAvailable(Person person) {
-        //PersonStorage.addItem(person);
+        PersonStorage.addItem(person);
 
         //notifyDatasetChanged on the default adapter.. geez
-        //ListView personListView = (ListView) findViewById(R.id.PersonListView);
-        //((BaseAdapter)personListView.getAdapter()).notifyDataSetChanged();
+        ListView personListView = (ListView) findViewById(R.id.PersonListView);
+        ((BaseAdapter)personListView.getAdapter()).notifyDataSetChanged();
     }
 
     @Override
