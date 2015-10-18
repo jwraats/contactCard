@@ -65,7 +65,18 @@ public class PersonDetailsActivity extends Fragment {
 
     public void setPerson(Person p){
         this.person = p;
+    }
 
+    public void updatePerson(){
+        if(this.person != null && firstName != null) {
+            firstName.setText(this.person.getFirstName());
+            lastName.setText(this.person.getLastName());
+        }
+    }
+
+    public void updatePerson(Person p){
+        this.setPerson(p);
+        this.updatePerson();
     }
 
     @Override
@@ -82,14 +93,10 @@ public class PersonDetailsActivity extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_person_details, container, false);
 
-        firstName = (TextView) view.findViewById(R.id.textView);
-        lastName = (TextView) view.findViewById(R.id.textView2);
-        img = (ImageView) view.findViewById(R.id.imageView);
-        if(person != null) {
-            firstName.setText(person.getFirstName());
-            lastName.setText(person.getLastName());
-
-        }
+        firstName = (TextView) view.findViewById(R.id.firstName);
+        lastName = (TextView) view.findViewById(R.id.lastName);
+        img = (ImageView) view.findViewById(R.id.profileImg);
+        this.updatePerson();
         // Inflate the layout for this fragment
         return view;
     }

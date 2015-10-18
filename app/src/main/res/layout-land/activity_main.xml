@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:name="apps.jacks.contactcard.PersonFragment"
-        android:id="@+id/fragment"
+        android:id="@+id/landListFragment"
         tools:layout="@layout/fragment_person"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -17,15 +17,18 @@
         android:layout_marginEnd="405dp" />
 
     <fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:name="apps.jacks.contactcard.PersonDetailsActivity"
-        android:id="@+id/fragment2"
+        android:id="@+id/landDetailsFragment"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="155dp"
         android:layout_marginStart="155dp"
         tools:layout="@layout/fragment_person_details"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true" />
 </RelativeLayout>

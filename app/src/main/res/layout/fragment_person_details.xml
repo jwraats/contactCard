@@ -8,12 +8,14 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal|top">
+        android:layout_gravity="center"
+        android:id="@+id/layoutDetails"
+        android:baselineAligned="false">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView"
+            android:layout_width="210dp"
+            android:layout_height="210dp"
+            android:id="@+id/profileImg"
             android:layout_gravity="center_horizontal"
             android:maxHeight="250dp"
             android:maxWidth="250dp"
@@ -24,19 +26,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:id="@+id/textView"
-            android:minWidth="250dp"
-            android:layout_gravity="center_horizontal" />
+            android:text="Voornaam"
+            android:id="@+id/firstName"
+            android:minWidth="250dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:id="@+id/textView2"
-            android:minWidth="250dp"
-            android:layout_gravity="center_horizontal" />
+            android:text="Achternaam"
+            android:id="@+id/lastName"
+            android:minWidth="250dp" />
 
     </LinearLayout>
 

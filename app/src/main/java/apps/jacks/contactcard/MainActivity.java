@@ -60,20 +60,16 @@ public class MainActivity extends AppCompatActivity implements ApiTask.OnPersonA
     @Override
     public void onPersonSelected(String email) {
         PersonDetailsActivity info = (PersonDetailsActivity)
-                getFragmentManager().findFragmentById(R.id.fragment2);
+                getFragmentManager().findFragmentById(R.id.landDetailsFragment);
 
         if(info != null){ //Use the fragment frame.
-            Intent i = new Intent(getApplicationContext(), PersonDetailsFrame.class);
-            i.putExtra("email", email);
-            startActivity(i);
+            info.updatePerson(PersonStorage.getPersonByEmail(email));
         }else{ //Use activity
             PersonDetailsActivity pda = new PersonDetailsActivity();
             pda.setPerson(PersonStorage.getPersonByEmail(email));
-
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment, pda);
+            transaction.replace(R.id.listFragment, pda);
             transaction.addToBackStack(null);
-
             transaction.commit();
         }
     }
