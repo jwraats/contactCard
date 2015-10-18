@@ -1,12 +1,18 @@
 package apps.jacks.contactcard;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.net.URL;
 
 
 /**
@@ -18,6 +24,11 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class PersonDetailsActivity extends Fragment {
+
+    private TextView firstName, lastName;
+    private ImageView img;
+    private Person person;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -52,6 +63,11 @@ public class PersonDetailsActivity extends Fragment {
         // Required empty public constructor
     }
 
+    public void setPerson(Person p){
+        this.person = p;
+
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +80,18 @@ public class PersonDetailsActivity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_person_details, container, false);
+
+        firstName = (TextView) view.findViewById(R.id.textView);
+        lastName = (TextView) view.findViewById(R.id.textView2);
+        img = (ImageView) view.findViewById(R.id.imageView);
+        if(person != null) {
+            firstName.setText(person.getFirstName());
+            lastName.setText(person.getLastName());
+
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_person_details, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

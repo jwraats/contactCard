@@ -1,5 +1,6 @@
 package apps.jacks.contactcard;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -41,9 +42,21 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.On
 
     @Override
     public void onPersonSelected(String email) {
-        Intent i = new Intent(getApplicationContext(), PersonDetailsActivity.class);
-        i.putExtra("email", email);
-        startActivity(i);
+        PersonDetailsActivity info = (PersonDetailsActivity)
+                getFragmentManager().findFragmentById(R.id.fragment2);
+
+        if(info != null){ //Use the fragment frame.
+
+        }else{ //Use activity
+            PersonDetailsActivity pda = new PersonDetailsActivity();
+            pda.setPerson(PersonStorage.getPersonByEmail(email));
+
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment, pda);
+            transaction.addToBackStack(null);
+
+            transaction.commit();
+        }
     }
 
     @Override
