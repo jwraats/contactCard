@@ -8,14 +8,31 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity implements PersonFragment.OnFragmentInteractionListener, PersonDetailsActivity.OnFragmentInteractionListener
+public class MainActivity extends AppCompatActivity implements ApiTask.OnPersonAvailable, PersonFragment.OnFragmentInteractionListener, PersonDetailsActivity.OnFragmentInteractionListener
 {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //add persons to the PersonStorage
+//        for (int i = 0; i < 10; i++){
+//            ApiTask apiTask = new ApiTask(this);
+//            String[] url = new String[] { "https://randomuser.me/api/"};
+//            apiTask.execute(url);
+//        }
+    }
+
+    @Override
+    public void onPersonAvailable(Person person) {
+        //PersonStorage.addItem(person);
+
+        //notifyDatasetChanged on the default adapter.. geez
+        //ListView personListView = (ListView) findViewById(R.id.PersonListView);
+        //((BaseAdapter)personListView.getAdapter()).notifyDataSetChanged();
     }
 
     @Override

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="apps.jacks.contactcard.PersonFragment">
 
-    <ListView android:id="@android:id/list" android:layout_width="match_parent"
+    <ListView android:id="@+id/PersonListView" android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <TextView android:id="@android:id/empty" android:layout_width="match_parent"
