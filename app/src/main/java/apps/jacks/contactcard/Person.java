@@ -13,8 +13,8 @@ public class Person {
     public Person(String email, boolean isMale, String firstName, String lastName, String imageURL){
         this.email = email;
         this.isMale = isMale;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstName = makeStringCapitalized(firstName);
+        this.lastName = makeStringCapitalized(lastName);
         this.imageURL = imageURL;
     }
 

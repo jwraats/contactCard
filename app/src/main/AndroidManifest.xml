@@ -23,6 +23,8 @@
             android:name=".PersonDetailsActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity android:name=".PersonDetailsFrame" >
+        </activity>
     </application>
 
 </manifest>

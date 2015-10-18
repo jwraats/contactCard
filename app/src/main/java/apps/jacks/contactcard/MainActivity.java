@@ -63,7 +63,9 @@ public class MainActivity extends AppCompatActivity implements ApiTask.OnPersonA
                 getFragmentManager().findFragmentById(R.id.fragment2);
 
         if(info != null){ //Use the fragment frame.
-
+            Intent i = new Intent(getApplicationContext(), PersonDetailsFrame.class);
+            i.putExtra("email", email);
+            startActivity(i);
         }else{ //Use activity
             PersonDetailsActivity pda = new PersonDetailsActivity();
             pda.setPerson(PersonStorage.getPersonByEmail(email));

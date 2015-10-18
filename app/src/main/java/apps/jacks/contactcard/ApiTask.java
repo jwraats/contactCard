@@ -98,27 +98,19 @@ public class ApiTask extends AsyncTask<String, Void, String> {
                 // get gender
                 String gender = user.getString("gender");
 
-                // get email
-                String email = user.getString("email");
-
                 // Get title, first and last name
                 JSONObject name = user.getJSONObject("name");
-                String firstName = name.getString("first");
-                String lastName = name.getString("last");
-                Log.i(TAG,firstName + ", " + lastName);
 
                 // Get image url
                 JSONObject picture = user.getJSONObject("picture");
-                String imageurl = picture.getString("large");
-                Log.i(TAG, imageurl);
 
                 // Create new Person object
                 Person p = new Person(
-                        email,
+                        user.getString("email"),
                         (gender.equals("male")),
-                        firstName,
-                        lastName,
-                        imageurl
+                        name.getString("first"),
+                        name.getString("last"),
+                        picture.getString("large")
                 );
 
                 // call back with new person data
