@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@android:color/holo_blue_bright">
+
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:id="@+id/profileImageRow"
+        android:layout_margin="12.5dp"
+        android:background="@android:color/background_dark"
+        android:contentDescription="Profiel afbeelding" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="12.5dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/firstNameLblName"
+            android:id="@+id/firstNameRow"
+            android:textSize="18sp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lastNameLblName"
+            android:id="@+id/lastNameRow"
+            android:textSize="18sp"
+            />
+    </LinearLayout>
+
+</LinearLayout>
