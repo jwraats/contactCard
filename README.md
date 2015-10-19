@@ -1,2 +1,0 @@
-# contactCard
-Avans opdracht Minor
