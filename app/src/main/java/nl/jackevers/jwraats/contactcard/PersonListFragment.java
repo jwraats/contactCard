@@ -48,7 +48,7 @@ public class PersonListFragment extends Fragment implements ApiTask.OnPersonAvai
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private ListAdapter mAdapter;
+    private PersonAdapter mAdapter;
 
     // TODO: Rename and change types of parameters
     public static PersonListFragment newInstance(String param1, String param2) {
@@ -63,6 +63,7 @@ public class PersonListFragment extends Fragment implements ApiTask.OnPersonAvai
     @Override
     public void onPersonAvailable(Person person) {
         Person.ITEMS.add(person);
+        mAdapter.notifyDataSetChanged();
     }
 
     /**
