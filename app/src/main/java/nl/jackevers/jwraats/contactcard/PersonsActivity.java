@@ -1,44 +1,60 @@
 package nl.jackevers.jwraats.contactcard;
 
+import android.app.FragmentTransaction;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 
-public class PersonsActivity extends AppCompatActivity implements PersonListFragment.OnFragmentInteractionListener, PersonFragment.OnFragmentInteractionListener{
-
+public class PersonsActivity extends AppCompatActivity implements PersonListFragment.OnFragmentInteractionListener, PersonFragment.OnFragmentInteractionListener {
+    private Person lastPerson;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_persons);
 
+
+        //Strange bug with Fragments
+        // http://stackoverflow.com/questions/5293850/fragment-duplication-on-fragment-transaction
+        // http://stackoverflow.com/questions/13446935/fragmenttransaction-replace-not-working
+        PersonListFragment plf = new PersonListFragment();
+        //
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.placeHolder, plf);
+        transaction.addToBackStack(null);
+
+        // Commit
+        transaction.commit();
+
     }
 
     @Override
-    public void onFragmentInteraction(String msg) {
+    public void onFragmentInteraction(String email) {
         //Doorsturen naar andere Fragments ...
-        PersonListFragment info = (PersonListFragment)
-                getFragmentManager().findFragmentById(R.id.person_list_fragment);
-
+        PersonFragment info = (PersonFragment)
+                getFragmentManager().findFragmentById(R.id.person_details_fragment);
+        lastPerson = PersonStorage.getPersonByEmail(email);
         // In Landscape, info != null
         if (info != null ) {
             //
+            info.updatePerson(lastPerson);
         }else{
+            PersonFragment pf = new PersonFragment();
+            pf.setPerson(lastPerson);
             //
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.placeHolder, pf);
+            transaction.addToBackStack(null);
+
+            // Commit
+            transaction.commit();
         }
     }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-        //Person Fragment
-        //Doorsturen naar andere Fragments ...
-        PersonListFragment info = (PersonListFragment)
-                getFragmentManager().findFragmentById(R.id.person_list_fragment);
-
-        // In Landscape, info != null
-        if (info != null ) {
-            //
-        }else{
-            //
-        }
+        //Just because Person Details frame wants it :/
     }
 }

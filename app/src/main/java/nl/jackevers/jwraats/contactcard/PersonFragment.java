@@ -7,6 +7,8 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 
 /**
@@ -23,9 +25,9 @@ public class PersonFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private TextView firstName, lastName;
+    private ImageView img;
+    private Person person;
 
     private OnFragmentInteractionListener mListener;
 
@@ -37,13 +39,8 @@ public class PersonFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment PersonFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static PersonFragment newInstance(String param1, String param2) {
         PersonFragment fragment = new PersonFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -54,17 +51,34 @@ public class PersonFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    }
+
+    public void setPerson(Person p){
+        this.person = p;
+    }
+
+    public void updatePerson(){
+        if(this.person != null && firstName != null && lastName != null) {
+            firstName.setText(this.person.firstName);
+            lastName.setText(this.person.lastName);
         }
+    }
+
+    public void updatePerson(Person p){
+        this.setPerson(p);
+        this.updatePerson();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_person, container, false);
+        View view = inflater.inflate(R.layout.fragment_person, container, false);
+        firstName = (TextView) view.findViewById(R.id.firstName);
+        lastName = (TextView) view.findViewById(R.id.lastName);
+        img = (ImageView) view.findViewById(R.id.profileImage);
+        this.updatePerson();
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

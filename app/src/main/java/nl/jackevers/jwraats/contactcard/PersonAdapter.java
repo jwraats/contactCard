@@ -27,13 +27,11 @@ public class PersonAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         int size = mPersonArrayList.size();
-        Log.i("getCount()","=" + size);
         return size;
     }
 
     @Override
     public Object getItem(int position) {
-        Log.i("getItem()","");
         return mPersonArrayList.get(position);
     }
 
@@ -47,25 +45,20 @@ public class PersonAdapter extends BaseAdapter {
 
         ViewHolder viewHolder;
 
-        // Create new of gebruik een al bestaande (recycled by Android)
+        // Create new or recycle one
         if(convertView == null) {
-
-            //
             convertView = mInflator.inflate(R.layout.listview_row, null);
 
-            //
             viewHolder = new ViewHolder();
             viewHolder.profileImageRow = (ImageView) convertView.findViewById(R.id.profileImageRow);
             viewHolder.firstNameRow = (TextView) convertView.findViewById(R.id.firstNameRow);
             viewHolder.lastNameRow = (TextView) convertView.findViewById(R.id.lastNameRow);
 
-            //
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        // En nu de viewHolder invullen met de juiste persons
         Person person = (Person) mPersonArrayList.get(position);
 
         viewHolder.firstNameRow.setText(person.firstName);
@@ -75,7 +68,6 @@ public class PersonAdapter extends BaseAdapter {
         return convertView;
     }
 
-    // Holds all data to the view. Wordt evt. gerecycled door Android
     private static class ViewHolder {
         public ImageView profileImageRow;
         public TextView firstNameRow;

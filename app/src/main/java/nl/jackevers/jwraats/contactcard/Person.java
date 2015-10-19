@@ -13,8 +13,6 @@ public class Person {
     public Boolean isMale;
     public String email, firstName, lastName, imageURL;
 
-    public static ArrayList<Person> ITEMS = new ArrayList<Person>();
-
     public Person(String email, Boolean isMale, String firstName, String lastName, String imageURL) {
         this.email = email;
         this.isMale = isMale;

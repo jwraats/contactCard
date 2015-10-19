@@ -62,7 +62,7 @@ public class PersonListFragment extends Fragment implements ApiTask.OnPersonAvai
 
     @Override
     public void onPersonAvailable(Person person) {
-        Person.ITEMS.add(person);
+        PersonStorage.addItem(person);
         mAdapter.notifyDataSetChanged();
     }
 
@@ -92,7 +92,7 @@ public class PersonListFragment extends Fragment implements ApiTask.OnPersonAvai
         }
 
         // TODO: Change Adapter to display your content
-        mAdapter = new PersonAdapter(getContext(), getActivity().getLayoutInflater(), Person.ITEMS);
+        mAdapter = new PersonAdapter(getContext(), getActivity().getLayoutInflater(), PersonStorage.ITEMS);
     }
 
     @Override
@@ -130,9 +130,7 @@ public class PersonListFragment extends Fragment implements ApiTask.OnPersonAvai
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (null != mListener) {
-            // Notify the active callbacks interface (the activity, if the
-            // fragment is attached to one) that an item has been selected.
-            //mListener.onFragmentInteraction(Person.ITEMS.get(position).id);
+            mListener.onFragmentInteraction(PersonStorage.ITEMS.get(position).email);
         }
     }
 
