@@ -15,12 +15,16 @@ public class Person {
 
     public static ArrayList<Person> ITEMS = new ArrayList<Person>();
 
-    public Person(String email, Boolean isMale, String firstName, String lastName, String imageURL){
+    public Person(String email, Boolean isMale, String firstName, String lastName, String imageURL) {
         this.email = email;
         this.isMale = isMale;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstName = makeStringCapitalized(firstName);
+        this.lastName = makeStringCapitalized(lastName);
         this.imageURL = imageURL;
 
+    }
+
+    private String makeStringCapitalized(String input) {
+        return Character.toUpperCase(input.charAt(0)) + input.substring(1);
     }
 }
