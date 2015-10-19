@@ -23,11 +23,19 @@ public class PersonsActivity extends AppCompatActivity implements PersonListFrag
         //
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.placeHolder, plf);
-        transaction.addToBackStack(null);
-
         // Commit
         transaction.commit();
 
+    }
+
+    // http://stackoverflow.com/questions/26047988/pressing-back-does-not-return-to-previous-fragment
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -46,7 +54,7 @@ public class PersonsActivity extends AppCompatActivity implements PersonListFrag
             //
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.placeHolder, pf);
-            transaction.addToBackStack(null);
+            transaction.addToBackStack(pf.getTag());
 
             // Commit
             transaction.commit();
