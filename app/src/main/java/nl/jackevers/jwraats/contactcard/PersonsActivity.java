@@ -1,20 +1,43 @@
 package nl.jackevers.jwraats.contactcard;
 
 import android.app.FragmentTransaction;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ListView;
 
-public class PersonsActivity extends AppCompatActivity implements PersonListFragment.OnFragmentInteractionListener, PersonFragment.OnFragmentInteractionListener {
+public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPersonAvailable, PersonListFragment.OnFragmentInteractionListener, PersonFragment.OnFragmentInteractionListener {
     private Person lastPerson;
+
+    @Override
+    public void onPersonAvailable(Person person) {
+        PersonStorage.addItem(person);
+        ListView personListView = (ListView) findViewById(R.id.personList);
+        if(personListView != null){
+            PersonAdapter pa = (PersonAdapter)personListView.getAdapter();
+            if(pa != null){
+                pa.notifyDataSetChanged();
+            }
+        }
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_persons);
 
+        //ApiTask
+        //add persons to the PersonStorage
+        for (int i = 0; i < 10; i++){
+            ApiTask apiTask = new ApiTask(this);
+            String[] url = new String[] { "https://randomuser.me/api/" };
+            apiTask.execute(url);
+        }
 
         //Strange bug with Fragments
         // http://stackoverflow.com/questions/5293850/fragment-duplication-on-fragment-transaction
@@ -44,11 +67,14 @@ public class PersonsActivity extends AppCompatActivity implements PersonListFrag
         PersonFragment info = (PersonFragment)
                 getFragmentManager().findFragmentById(R.id.person_details_fragment);
         lastPerson = PersonStorage.getPersonByEmail(email);
+
         // In Landscape, info != null
-        if (info != null ) {
-            //
+        if (info != null && getResources().getConfiguration().orientation == 2) {
             info.updatePerson(lastPerson);
         }else{
+            if (info != null){
+                info.updatePerson(lastPerson);
+            }
             PersonFragment pf = new PersonFragment();
             pf.setPerson(lastPerson);
             //

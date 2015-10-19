@@ -26,7 +26,7 @@ import java.util.ArrayList;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class PersonListFragment extends Fragment implements ApiTask.OnPersonAvailable, AbsListView.OnItemClickListener {
+public class PersonListFragment extends Fragment implements AbsListView.OnItemClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,12 +60,6 @@ public class PersonListFragment extends Fragment implements ApiTask.OnPersonAvai
         return fragment;
     }
 
-    @Override
-    public void onPersonAvailable(Person person) {
-        PersonStorage.addItem(person);
-        mAdapter.notifyDataSetChanged();
-    }
-
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -77,14 +71,6 @@ public class PersonListFragment extends Fragment implements ApiTask.OnPersonAvai
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //ApiTask
-        //add persons to the PersonStorage
-        for (int i = 0; i < 10; i++){
-            ApiTask apiTask = new ApiTask(this);
-            String[] url = new String[] { "https://randomuser.me/api/" };
-            apiTask.execute(url);
-        }
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);

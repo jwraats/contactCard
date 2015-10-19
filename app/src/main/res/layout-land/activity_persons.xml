@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <fragment
-            android:id="@+id/person_list_fragment"
+        <RelativeLayout
             android:layout_width="242dp"
             android:layout_height="fill_parent"
-            class="nl.jackevers.jwraats.contactcard.PersonListFragment"
-            tools:layout="@layout/fragment_personlist_list">
-        </fragment>
+            android:layout_weight="1"
+            android:id="@+id/placeHolder">
+
+        </RelativeLayout>
 
         <fragment
             android:id="@+id/person_details_fragment"
