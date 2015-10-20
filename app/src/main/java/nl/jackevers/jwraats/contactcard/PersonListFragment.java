@@ -77,7 +77,6 @@ public class PersonListFragment extends Fragment implements AbsListView.OnItemCl
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        // TODO: Change Adapter to display your content
         mAdapter = new PersonAdapter(getActivity().getLayoutInflater(), PersonStorage.ITEMS);
     }
 

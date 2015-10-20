@@ -62,7 +62,12 @@ public class PersonAdapter extends BaseAdapter {
 
         viewHolder.firstNameRow.setText(person.firstName);
         viewHolder.lastNameRow.setText(person.lastName);
-        //viewHolder.profileImageRow.setImageBitmap(person.bitmap);
+        if (person.getThumbnailImage() != null) {
+            viewHolder.profileImageRow.setImageBitmap(person.getThumbnailImage());
+        } else {
+            // MY DEFAULT IMAGE
+            //viewHolder.profileImageRow.setImageResource(R.drawable.generic_profile_man);
+        }
 
         return convertView;
     }
