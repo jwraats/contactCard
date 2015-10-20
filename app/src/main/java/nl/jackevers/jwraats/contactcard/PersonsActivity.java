@@ -22,17 +22,25 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
         }
     }
 
+    private void fillPersonList()
+    {
+        //ApiTask
+        //add persons to the PersonStorage
+        for (int i = 0; i < 10; i++){
+            ApiTask apiTask = new ApiTask(this);
+            String[] url = new String[] { "https://randomuser.me/api/" };
+            apiTask.execute(url);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_persons);
 
-        //ApiTask
-        //add persons to the PersonStorage
-            for (int i = 0; i < 10; i++){
-            ApiTask apiTask = new ApiTask(this);
-            String[] url = new String[] { "https://randomuser.me/api/" };
-            apiTask.execute(url);
+        if(PersonStorage.ITEMS.isEmpty())
+        {
+            fillPersonList();
         }
 
         //Strange bug with Fragments
@@ -55,7 +63,6 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
         else
         {
             //when the screen is being created in portrait mode and there is more than zero entries in the backStack. go back.
-
             if (getFragmentManager().getBackStackEntryCount() > 0) {
                 getFragmentManager().popBackStack();
             }

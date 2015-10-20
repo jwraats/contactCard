@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_width="242dp"
+            android:layout_width="400dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:id="@+id/placeHolder">
