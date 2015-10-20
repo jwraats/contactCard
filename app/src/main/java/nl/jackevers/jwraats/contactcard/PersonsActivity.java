@@ -5,14 +5,9 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPersonAvailable, PersonListFragment.OnFragmentInteractionListener, PersonFragment.OnFragmentInteractionListener {
-
-    private Person lastPerson;
 
     @Override
     public void onPersonAvailable(Person person) {
@@ -50,6 +45,22 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
         // Commit
         transaction.commit();
 
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            PersonFragment info = (PersonFragment)
+                    getFragmentManager().findFragmentById(R.id.person_details_fragment);
+            if(null != info) {
+                info.updatePerson(PersonStorage.lastPerson);
+            }
+        }
+        else
+        {
+            //when the screen is being created in portrait mode and there is more than zero entries in the backStack. go back.
+
+            if (getFragmentManager().getBackStackEntryCount() > 0) {
+                getFragmentManager().popBackStack();
+            }
+        }
+
     }
 
     // http://stackoverflow.com/questions/26047988/pressing-back-does-not-return-to-previous-fragment
@@ -67,17 +78,20 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
         //Doorsturen naar andere Fragments ...
         PersonFragment info = (PersonFragment)
                 getFragmentManager().findFragmentById(R.id.person_details_fragment);
-        this.lastPerson = PersonStorage.getPersonByEmail(email);
+        PersonStorage.lastPerson = PersonStorage.getPersonByEmail(email);
 
-        // In Landscape, info != null
-        if (info != null && getResources().getConfiguration().orientation == 2) {
-            info.updatePerson(this.lastPerson);
-        }else{
-            if (info != null){
-                info.updatePerson(this.lastPerson);
+        if(null != info) {
+            info.setmListener(this);
+            info.updatePerson(PersonStorage.lastPerson);
+            if (getResources().getConfiguration().orientation == 2) {
+                info.updatePerson(PersonStorage.lastPerson);
             }
+        }
+        // In Landscape, info != null
+        else{
             PersonFragment pf = new PersonFragment();
-            pf.updatePerson(this.lastPerson);
+            pf.setmListener(this);
+            pf.updatePerson(PersonStorage.lastPerson);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.placeHolder, pf);
             transaction.addToBackStack(pf.getTag());
@@ -98,7 +112,7 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
                 getFragmentManager().findFragmentById(R.id.person_details_fragment);
         if(null != info)
         {
-            info.updatePerson(this.lastPerson);
+            info.updatePerson(PersonStorage.lastPerson);
         }
     }
 }

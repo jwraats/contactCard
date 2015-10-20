@@ -17,6 +17,7 @@ import java.util.Map;
 public class PersonStorage {
     public static ArrayList<Person> ITEMS = new ArrayList<Person>();
     public static Map<String, Person> ITEM_MAP = new HashMap<String, Person>();
+    public static Person lastPerson;
 
     public static Bitmap getBitmapFromURL(String src) {
         try {

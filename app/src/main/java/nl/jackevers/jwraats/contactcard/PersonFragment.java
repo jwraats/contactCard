@@ -116,6 +116,11 @@ public class PersonFragment extends Fragment {
         mListener = null;
     }
 
+    public void setmListener(PersonFragment.OnFragmentInteractionListener mListener)
+    {
+        this.mListener = mListener;
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
