@@ -17,8 +17,7 @@ public class PersonDetailActivity extends AppCompatActivity implements PersonFra
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Intent intent = new Intent(this, PersonsActivity.class);
-            startActivity(intent);
+            super.onBackPressed();
         }
     }
 

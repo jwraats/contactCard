@@ -20,6 +20,12 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
             if(pa != null){
                 person.loadThumbnailImage(pa);
                 pa.notifyDataSetChanged();
+
+                if(!PersonStorage.ITEMS.isEmpty() && PersonStorage.lastPerson == null){
+                    //
+                    PersonStorage.lastPerson = PersonStorage.ITEMS.get(0);
+                    updateLandscapePerson();
+                }
             }
         }
     }
@@ -34,6 +40,14 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
         }
     }
 
+    private void updateLandscapePerson(){
+        PersonFragment info = (PersonFragment)
+                getFragmentManager().findFragmentById(R.id.person_details_fragment);
+        if(null != info) {
+            info.updatePerson(PersonStorage.lastPerson);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,29 +59,9 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
         }
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            PersonFragment info = (PersonFragment)
-                    getFragmentManager().findFragmentById(R.id.person_details_fragment);
-            if(null != info) {
-                info.updatePerson(PersonStorage.lastPerson);
-            }
-        }
-        else {
-            //when the screen is being created in portrait mode and there is more than zero entries in the backStack. go back.
-            if (getFragmentManager().getBackStackEntryCount() > 0) {
-                getFragmentManager().popBackStack();
-            }
+            updateLandscapePerson();
         }
 
-    }
-
-    // http://stackoverflow.com/questions/26047988/pressing-back-does-not-return-to-previous-fragment
-    @Override
-    public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
-        } else {
-            super.onBackPressed();
-        }
     }
 
     @Override
