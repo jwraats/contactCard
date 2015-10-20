@@ -10,7 +10,6 @@ import java.util.Map;
 public class PersonStorage {
     public static ArrayList<Person> ITEMS = new ArrayList<Person>();
     public static Map<String, Person> ITEM_MAP = new HashMap<String, Person>();
-    public static Person LASTPERSON;
 
     public static Person getPersonByEmail(String email){
         return ITEM_MAP.get(email);

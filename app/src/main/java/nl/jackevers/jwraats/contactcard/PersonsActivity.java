@@ -12,6 +12,8 @@ import android.widget.ListView;
 
 public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPersonAvailable, PersonListFragment.OnFragmentInteractionListener, PersonFragment.OnFragmentInteractionListener {
 
+    private Person lastPerson;
+
     @Override
     public void onPersonAvailable(Person person) {
         PersonStorage.addItem(person);
@@ -31,7 +33,7 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
 
         //ApiTask
         //add persons to the PersonStorage
-        for (int i = 0; i < 10; i++){
+            for (int i = 0; i < 10; i++){
             ApiTask apiTask = new ApiTask(this);
             String[] url = new String[] { "https://randomuser.me/api/" };
             apiTask.execute(url);
@@ -64,16 +66,17 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
         //Doorsturen naar andere Fragments ...
         PersonFragment info = (PersonFragment)
                 getFragmentManager().findFragmentById(R.id.person_details_fragment);
-        PersonStorage.LASTPERSON = PersonStorage.getPersonByEmail(email);
+        this.lastPerson = PersonStorage.getPersonByEmail(email);
 
         // In Landscape, info != null
         if (info != null && getResources().getConfiguration().orientation == 2) {
-            info.updatePerson(PersonStorage.LASTPERSON);
+            info.updatePerson(this.lastPerson);
         }else{
             if (info != null){
-                info.updatePerson(PersonStorage.LASTPERSON);
+                info.updatePerson(this.lastPerson);
             }
             PersonFragment pf = new PersonFragment();
+            pf.updatePerson(this.lastPerson);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.placeHolder, pf);
             transaction.addToBackStack(pf.getTag());
@@ -86,5 +89,15 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
     @Override
     public void onFragmentInteraction(Uri uri) {
         //Just because Person Details frame wants it :/
+    }
+
+    @Override
+    public void onFragmentCreate() {
+        PersonFragment info = (PersonFragment)
+                getFragmentManager().findFragmentById(R.id.person_details_fragment);
+        if(null != info)
+        {
+            info.updatePerson(this.lastPerson);
+        }
     }
 }

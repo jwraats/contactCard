@@ -51,6 +51,10 @@ public class PersonFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if( null != mListener) {
+            mListener.onFragmentCreate();
+        }
     }
 
     public void setPerson(Person p){
@@ -72,7 +76,7 @@ public class PersonFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.setPerson(PersonStorage.LASTPERSON);
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_person, container, false);
         firstName = (TextView) view.findViewById(R.id.firstName);
@@ -119,6 +123,7 @@ public class PersonFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+        public void onFragmentCreate();
     }
 
 }
