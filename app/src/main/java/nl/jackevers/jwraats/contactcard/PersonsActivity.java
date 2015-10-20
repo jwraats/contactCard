@@ -1,14 +1,16 @@
 package nl.jackevers.jwraats.contactcard;
 
+import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPersonAvailable, PersonListFragment.OnFragmentInteractionListener, PersonFragment.OnFragmentInteractionListener {
-
     @Override
     public void onPersonAvailable(Person person) {
         PersonStorage.addItem(person);
@@ -22,8 +24,7 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
         }
     }
 
-    private void fillPersonList()
-    {
+    private void fillPersonList() {
         //ApiTask
         //add persons to the PersonStorage
         for (int i = 0; i < 10; i++){
@@ -43,16 +44,6 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
             fillPersonList();
         }
 
-        //Strange bug with Fragments
-        // http://stackoverflow.com/questions/5293850/fragment-duplication-on-fragment-transaction
-        // http://stackoverflow.com/questions/13446935/fragmenttransaction-replace-not-working
-        PersonListFragment plf = new PersonListFragment();
-        //
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.placeHolder, plf);
-        // Commit
-        transaction.commit();
-
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             PersonFragment info = (PersonFragment)
                     getFragmentManager().findFragmentById(R.id.person_details_fragment);
@@ -60,8 +51,7 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
                 info.updatePerson(PersonStorage.lastPerson);
             }
         }
-        else
-        {
+        else {
             //when the screen is being created in portrait mode and there is more than zero entries in the backStack. go back.
             if (getFragmentManager().getBackStackEntryCount() > 0) {
                 getFragmentManager().popBackStack();
@@ -87,27 +77,14 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
                 getFragmentManager().findFragmentById(R.id.person_details_fragment);
 
         PersonStorage.lastPerson = PersonStorage.getPersonByEmail(email);
-
+        // In Landscape, info != null
         if(null != info) {
             info.updatePerson(PersonStorage.lastPerson);
-            if (getResources().getConfiguration().orientation == 2) {
-                info.updatePerson(PersonStorage.lastPerson);
-            }
         }
-        // In Landscape, info != null
-        else{
-            PersonFragment pf = new PersonFragment();
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.placeHolder, pf);
-            transaction.addToBackStack(pf.getTag());
 
-            // Commit
-            transaction.commit();
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Intent intent = new Intent(this, PersonDetailActivity.class);
+            startActivity(intent);
         }
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-        //Just because Person Details frame wants it :/
     }
 }
