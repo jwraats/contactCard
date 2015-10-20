@@ -17,9 +17,8 @@ public class PersonAdapter extends BaseAdapter {
     LayoutInflater mInflator;
     ArrayList mPersonArrayList;
 
-    public PersonAdapter(Context context, LayoutInflater layoutInflater, ArrayList<Person> personArrayList)
+    public PersonAdapter(LayoutInflater layoutInflater, ArrayList<Person> personArrayList)
     {
-        mContext = context;
         mInflator = layoutInflater;
         mPersonArrayList = personArrayList;
     }
@@ -42,7 +41,7 @@ public class PersonAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
+        mContext = parent.getContext();
         ViewHolder viewHolder;
 
         // Create new or recycle one
