@@ -53,10 +53,6 @@ public class PersonFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if( null != mListener) {
-            mListener.onFragmentCreate();
-        }
     }
 
     public void setPerson(Person p){
@@ -83,6 +79,7 @@ public class PersonFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
+        this.setPerson(PersonStorage.lastPerson);
         View view = inflater.inflate(R.layout.fragment_person, container, false);
         firstName = (TextView) view.findViewById(R.id.firstName);
         lastName = (TextView) view.findViewById(R.id.lastName);
@@ -116,11 +113,6 @@ public class PersonFragment extends Fragment {
         mListener = null;
     }
 
-    public void setmListener(PersonFragment.OnFragmentInteractionListener mListener)
-    {
-        this.mListener = mListener;
-    }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -134,8 +126,6 @@ public class PersonFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
-
-        public void onFragmentCreate();
     }
 
 }

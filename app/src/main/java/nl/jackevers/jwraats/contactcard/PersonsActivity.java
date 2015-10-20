@@ -85,10 +85,10 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
         //Doorsturen naar andere Fragments ...
         PersonFragment info = (PersonFragment)
                 getFragmentManager().findFragmentById(R.id.person_details_fragment);
+
         PersonStorage.lastPerson = PersonStorage.getPersonByEmail(email);
 
         if(null != info) {
-            info.setmListener(this);
             info.updatePerson(PersonStorage.lastPerson);
             if (getResources().getConfiguration().orientation == 2) {
                 info.updatePerson(PersonStorage.lastPerson);
@@ -97,8 +97,6 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
         // In Landscape, info != null
         else{
             PersonFragment pf = new PersonFragment();
-            pf.setmListener(this);
-            pf.updatePerson(PersonStorage.lastPerson);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.placeHolder, pf);
             transaction.addToBackStack(pf.getTag());
@@ -111,15 +109,5 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
     @Override
     public void onFragmentInteraction(Uri uri) {
         //Just because Person Details frame wants it :/
-    }
-
-    @Override
-    public void onFragmentCreate() {
-        PersonFragment info = (PersonFragment)
-                getFragmentManager().findFragmentById(R.id.person_details_fragment);
-        if(null != info)
-        {
-            info.updatePerson(PersonStorage.lastPerson);
-        }
     }
 }
