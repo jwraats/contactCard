@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
@@ -27,6 +28,7 @@ public class PersonFragment extends Fragment {
 
     private TextView firstName, lastName;
     private ImageView img;
+    private ProgressBar progressBar;
     private Person person;
 
     private OnFragmentInteractionListener mListener;
@@ -67,7 +69,7 @@ public class PersonFragment extends Fragment {
             lastName.setText(this.person.lastName);
 
             // show The Image
-            new DownloadImageTask(img).execute(this.person.imageURL);
+            new DownloadImageTask(img, progressBar).execute(this.person.imageURL);
         }
     }
 
@@ -84,6 +86,7 @@ public class PersonFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_person, container, false);
         firstName = (TextView) view.findViewById(R.id.firstName);
         lastName = (TextView) view.findViewById(R.id.lastName);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         img = (ImageView) view.findViewById(R.id.profileImage);
         this.updatePerson();
         return view;

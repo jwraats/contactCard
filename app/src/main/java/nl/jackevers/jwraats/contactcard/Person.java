@@ -1,6 +1,7 @@
 package nl.jackevers.jwraats.contactcard;
 
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,10 @@ public class Person {
     public Boolean isMale;
     public String email, firstName, lastName, imageURL, thumbnailURL;
 
+    public Bitmap thumbnailImg;
+
+    private PersonAdapter pa;
+
     public Person(String email, Boolean isMale, String firstName, String lastName, String imageURL, String thumbnailURL) {
         this.email = email;
         this.isMale = isMale;
@@ -19,11 +24,63 @@ public class Person {
         this.lastName = makeStringCapitalized(lastName);
         this.imageURL = imageURL;
         this.thumbnailURL = thumbnailURL;
+    }
 
-
+    public Bitmap getThumbnailImage() {
+        return this.thumbnailImg;
     }
 
     private String makeStringCapitalized(String input) {
         return Character.toUpperCase(input.charAt(0)) + input.substring(1);
     }
+
+    public PersonAdapter getAdapter() {
+        return pa;
+    }
+
+    public void setAdapter(PersonAdapter pa) {
+        this.pa = pa;
+    }
+
+    public void loadThumbnailImage(PersonAdapter pa) {
+        this.pa = pa;
+        String url = this.thumbnailURL;
+        if (url != null && ! url.equals("")) {
+            new ImageLoadTask().execute(url);
+        }
+    }
+
+    //Lazy LOADING
+    private class ImageLoadTask extends AsyncTask<String, String, Bitmap> {
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        // PARAM[0] IS IMG URL
+        protected Bitmap doInBackground(String... param) {
+            try {
+                Bitmap b = PersonStorage.getBitmapFromURL(param[0]);
+                return b;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        protected void onProgressUpdate(String... progress) {
+            // NO OP
+        }
+
+        protected void onPostExecute(Bitmap ret) {
+            if (ret != null) {
+                thumbnailImg = ret;
+                if (pa != null) {
+                    // WHEN IMAGE IS LOADED NOTIFY THE ADAPTER
+                    pa.notifyDataSetChanged();
+                }
+            }
+        }
+    }
+
 }

@@ -5,48 +5,79 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/profileImage"
-        android:layout_column="27"
-        android:minHeight="100dp"
-        android:minWidth="100dp"
-        android:maxHeight="200dp"
-        android:maxWidth="200dp"
-        android:layout_gravity="right|top" />
-
-    <TableLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal|top">
+        android:layout_height="match_parent">
 
-        <TableRow
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/firstNameLblName"
-                android:id="@+id/firstName"
-                android:layout_column="1" />
+                android:layout_gravity="center_horizontal">
 
-        </TableRow>
+                <ImageView
+                    android:layout_width="438px"
+                    android:layout_height="438px"
+                    android:id="@+id/profileImage"
+                    android:layout_column="27"
+                    android:minHeight="100dp"
+                    android:minWidth="100dp"
+                    android:maxHeight="200dp"
+                    android:maxWidth="200dp"
+                    android:layout_gravity="center_horizontal|top" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progressBar"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_alignTop="@id/profileImage"
+                    android:layout_alignBottom="@id/profileImage"
+                    android:layout_alignLeft="@id/profileImage"
+                    android:layout_alignRight="@id/profileImage"
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/lastNameLblName"
-                android:id="@+id/lastName"
-                android:layout_column="1" />
-        </TableRow>
-    </TableLayout>
+                    android:layout_margin="60dp" />
+            </RelativeLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginLeft="35dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/firstNameLblName"
+                        android:id="@+id/firstName"
+                        android:layout_column="1" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/lastNameLblName"
+                        android:id="@+id/lastName"
+                        android:layout_column="1" />
+                </TableRow>
+            </TableLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>

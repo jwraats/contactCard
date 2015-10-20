@@ -21,6 +21,7 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
         if(personListView != null){
             PersonAdapter pa = (PersonAdapter)personListView.getAdapter();
             if(pa != null){
+                person.loadThumbnailImage(pa);
                 pa.notifyDataSetChanged();
             }
         }
