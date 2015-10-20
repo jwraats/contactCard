@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPersonAvailable, PersonListFragment.OnFragmentInteractionListener, PersonFragment.OnFragmentInteractionListener {
-    private Person lastPerson;
 
     @Override
     public void onPersonAvailable(Person person) {
@@ -23,7 +22,6 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
                 pa.notifyDataSetChanged();
             }
         }
-
     }
 
     @Override
@@ -66,18 +64,16 @@ public class PersonsActivity extends AppCompatActivity implements ApiTask.OnPers
         //Doorsturen naar andere Fragments ...
         PersonFragment info = (PersonFragment)
                 getFragmentManager().findFragmentById(R.id.person_details_fragment);
-        lastPerson = PersonStorage.getPersonByEmail(email);
+        PersonStorage.LASTPERSON = PersonStorage.getPersonByEmail(email);
 
         // In Landscape, info != null
         if (info != null && getResources().getConfiguration().orientation == 2) {
-            info.updatePerson(lastPerson);
+            info.updatePerson(PersonStorage.LASTPERSON);
         }else{
             if (info != null){
-                info.updatePerson(lastPerson);
+                info.updatePerson(PersonStorage.LASTPERSON);
             }
             PersonFragment pf = new PersonFragment();
-            pf.setPerson(lastPerson);
-            //
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.placeHolder, pf);
             transaction.addToBackStack(pf.getTag());

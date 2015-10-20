@@ -72,6 +72,7 @@ public class PersonFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        this.setPerson(PersonStorage.LASTPERSON);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_person, container, false);
         firstName = (TextView) view.findViewById(R.id.firstName);
