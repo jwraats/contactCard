@@ -9,16 +9,17 @@ import java.util.List;
  * Created by jwraats on 19/10/15.
  */
 public class Person {
-    public Bitmap profileImage;
     public Boolean isMale;
-    public String email, firstName, lastName, imageURL;
+    public String email, firstName, lastName, imageURL, thumbnailURL;
 
-    public Person(String email, Boolean isMale, String firstName, String lastName, String imageURL) {
+    public Person(String email, Boolean isMale, String firstName, String lastName, String imageURL, String thumbnailURL) {
         this.email = email;
         this.isMale = isMale;
         this.firstName = makeStringCapitalized(firstName);
         this.lastName = makeStringCapitalized(lastName);
         this.imageURL = imageURL;
+        this.thumbnailURL = thumbnailURL;
+
 
     }
 

@@ -110,7 +110,9 @@ public class ApiTask extends AsyncTask<String, Void, String> {
                         (gender.equals("male")),
                         name.getString("first"),
                         name.getString("last"),
-                        picture.getString("large")
+                        picture.getString("large"),
+                        picture.getString("thumbnail")
+
                 );
 
                 // call back with new person data

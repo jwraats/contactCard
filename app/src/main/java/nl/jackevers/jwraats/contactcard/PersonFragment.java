@@ -65,6 +65,9 @@ public class PersonFragment extends Fragment {
         if(this.person != null && firstName != null && lastName != null) {
             firstName.setText(this.person.firstName);
             lastName.setText(this.person.lastName);
+
+            // show The Image
+            new DownloadImageTask(img).execute(this.person.imageURL);
         }
     }
 
@@ -123,7 +126,14 @@ public class PersonFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+
         public void onFragmentCreate();
     }
 
 }
+
+//public void onClick(View v) {
+//        startActivity(new Intent(this, IndexActivity.class));
+//        finish();
+//
+//        }
